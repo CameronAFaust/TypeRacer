@@ -1,0 +1,22 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.spacer {
+  flex: 3;
+}
+
+.button-holder {
+  padding: 10px 25px;
+}
+
+.nav-button {
+  font-size: 26px;
+  color: white;
+}

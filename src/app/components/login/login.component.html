@@ -1,0 +1,33 @@
+<div class="loginHolder" *ngIf="!hidden">
+  <div class="backdrop" (click)="hide($event)">
+    <div class="modalContent">
+      <div class="left">
+        <div class="content">
+          <h2>Login</h2>
+          <form action="" [formGroup]="loginForm">
+            <div class="loginContent">
+              <input formControlName="username" placeholder="username" type="text" name="username" id="username">
+              <input formControlName="password" placeholder="password" type="password" name="password" id="password">
+              <div class="submit">Login</div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="right">
+        <div class="content">
+          <h2>Sign Up</h2>
+          <form action="" [formGroup]="registerForm">
+            <div class="signupContent">
+              <input formControlName="username" placeholder="username" type="text" name="username" id="username">
+              <input formControlName="email" placeholder="email" type="email" name="email" id="email">
+              <input formControlName="password" placeholder="password" type="password" name="password" id="password">
+              <input formControlName="confirmPassword" placeholder="confirm password" type="password"
+                name="confirmPassword" id="confirmPassword">
+              <div class="submit">Register</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

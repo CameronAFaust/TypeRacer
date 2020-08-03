@@ -1,0 +1,26 @@
+.holder {
+  width: 70%;
+  margin: auto;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.scores-holder {
+  margin: auto;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.left, .right {
+  width: 50%;
+}
+
+.content {
+  width: fit-content;
+  margin: 20px 5px;
+}
+
+p {
+  margin: 9px;
+}

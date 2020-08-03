@@ -1,0 +1,23 @@
+<div class="holder">
+  <h1>High Scores</h1>
+  <div class="scores-holder">
+    <div class="left">
+      <div class="content">
+        <div *ngFor="let person of hsData; index as i">
+          <p *ngIf="i<5">
+            {{i + 1}}. {{person.name}} - {{person.time}} - {{person.wpm}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="content">
+        <div *ngFor="let person of hsData; index as i">
+          <p *ngIf="i>4">
+            {{i + 1}}. {{person.name}} - {{person.time}} - {{person.wpm}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

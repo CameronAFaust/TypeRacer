@@ -1,0 +1,21 @@
+<!-- https://codersblock.com/blog/highlight-text-inside-a-textarea/ -->
+<div class="typeHolder">
+  <div class="display">
+    <!-- image -->
+    <!-- ? -->
+  </div>
+  <div class="textHolder">
+    <div class="container">
+      <div class="backdrop">
+        <div class="highlights">
+          <mark #highlightText>{{correctHighlight}}</mark>
+          <mark class="incorrect" #incorrectText>{{incorrectHighlight}}</mark>
+        </div>
+      </div>
+      <textarea disabled #text></textarea>
+    </div>
+    <div class="inputHolder">
+      <input #userInput />
+    </div>
+  </div>
+</div>

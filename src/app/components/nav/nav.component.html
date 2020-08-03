@@ -1,0 +1,17 @@
+<div class="nav-container">
+  <div class="button-holder">
+    <a class="nav-button" routerLink="/">Home</a>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- if logged in -->
+  <div class="button-holder" (click)="showLogin()">
+    <span class="nav-button">login</span>
+  </div>
+  <div class="button-holder">
+    <a class="nav-button" routerLink="/profile">Profile</a>
+  </div>
+</div>
+
+<login-popup [hidden]='!hideNav'></login-popup>

@@ -1,0 +1,95 @@
+.typeHolder {
+  width: 70%;
+  height: 350px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+}
+
+.display {
+  width: 230px;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 15px;
+  height: 90%;
+}
+
+.container,
+.backdrop,
+textarea {
+  width: 650px;
+  height: 250px;
+}
+
+.highlights,
+textarea {
+  padding: 0px;
+  font: 26px 'Open Sans', sans-serif;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.container {
+  display: block;
+  margin: 0 auto;
+}
+
+.backdrop {
+  padding: 10px 0 0 10px;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  border: 2px solid #000;
+  background-color: #fff;
+  overflow: auto;
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+.highlights {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: transparent;
+}
+
+textarea {
+  padding: 10px 0 0 10px;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  border-radius: 0;
+  color: #444;
+  background-color: transparent;
+  overflow: auto;
+  resize: none;
+}
+
+mark {
+  border-radius: 3px;
+  color: transparent;
+  background-color: #61FF87;
+}
+
+.incorrect {
+  background-color: #FF6E6E;
+}
+
+.inputHolder {
+  text-align: center;
+  margin-top: 30px;
+}
+
+input {
+  text-align: center;
+  width: 656px;
+  height: 30px;
+  font-size: 20px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  margin-left: 15px;
+}
+
+textarea {
+  user-select: none;
+}
