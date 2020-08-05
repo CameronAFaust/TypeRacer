@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"typeracera88a9dca": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

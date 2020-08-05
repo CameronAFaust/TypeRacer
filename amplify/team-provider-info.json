@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-typeracer-dev-90708-authRole",
+            "UnauthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-90708-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-90708-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-typeracer-dev-90708-deployment",
+            "UnauthRoleName": "amplify-typeracer-dev-90708-unauthRole",
+            "StackName": "amplify-typeracer-dev-90708",
+            "StackId": "arn:aws:cloudformation:us-east-2:161358459029:stack/amplify-typeracer-dev-90708/01f3e630-d59b-11ea-836a-065d28d7f21a",
+            "AmplifyAppId": "dsohcobvrrtcz"
+        },
+        "categories": {
+            "auth": {
+                "typeracera88a9dca": {}
+            }
+        }
+    }
+}
