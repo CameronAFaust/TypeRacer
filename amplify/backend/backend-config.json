@@ -1,10 +1,69 @@
 {
+	"function": {
+		"typeracer8a9f4ae28a9f4ae2CreateAuthChallenge": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		},
+		"typeracer8a9f4ae28a9f4ae2DefineAuthChallenge": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		},
+		"typeracer8a9f4ae28a9f4ae2PostConfirmation": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		},
+		"typeracer8a9f4ae28a9f4ae2VerifyAuthChallengeResponse": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		}
+	},
 	"auth": {
-		"typeracera88a9dca": {
+		"typeracer8a9f4ae28a9f4ae2": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "typeracer8a9f4ae28a9f4ae2CreateAuthChallenge",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "typeracer8a9f4ae28a9f4ae2DefineAuthChallenge",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "typeracer8a9f4ae28a9f4ae2PostConfirmation",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "typeracer8a9f4ae28a9f4ae2VerifyAuthChallengeResponse",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			],
+			"customAuth": true
 		}
 	}
 }

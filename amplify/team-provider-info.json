@@ -1,19 +1,31 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-typeracer-dev-90708-authRole",
-            "UnauthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-90708-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-90708-authRole",
+            "AuthRoleName": "amplify-typeracer-dev-81442-authRole",
+            "UnauthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-81442-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::161358459029:role/amplify-typeracer-dev-81442-authRole",
             "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-typeracer-dev-90708-deployment",
-            "UnauthRoleName": "amplify-typeracer-dev-90708-unauthRole",
-            "StackName": "amplify-typeracer-dev-90708",
-            "StackId": "arn:aws:cloudformation:us-east-2:161358459029:stack/amplify-typeracer-dev-90708/01f3e630-d59b-11ea-836a-065d28d7f21a",
-            "AmplifyAppId": "dsohcobvrrtcz"
+            "DeploymentBucketName": "amplify-typeracer-dev-81442-deployment",
+            "UnauthRoleName": "amplify-typeracer-dev-81442-unauthRole",
+            "StackName": "amplify-typeracer-dev-81442",
+            "StackId": "arn:aws:cloudformation:us-east-2:161358459029:stack/amplify-typeracer-dev-81442/02e347c0-d726-11ea-aaa0-0a1d079b09e4",
+            "AmplifyAppId": "d3k79rr3uj80n"
         },
         "categories": {
+            "function": {
+                "typeracer8a9f4ae28a9f4ae2CreateAuthChallenge": {},
+                "typeracer8a9f4ae28a9f4ae2DefineAuthChallenge": {},
+                "typeracer8a9f4ae28a9f4ae2PostConfirmation": {
+                    "GROUP": "users"
+                },
+                "typeracer8a9f4ae28a9f4ae2VerifyAuthChallengeResponse": {
+                    "RECAPTCHASECRET": ""
+                }
+            },
             "auth": {
-                "typeracera88a9dca": {}
+                "typeracer8a9f4ae28a9f4ae2": {
+                    "hostedUIProviderCreds": "[]"
+                }
             }
         }
     }

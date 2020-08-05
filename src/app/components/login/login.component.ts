@@ -30,12 +30,12 @@ export class LoginPopupComponent implements OnInit {
   constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    Amplify.configure({
-      Auth: {
-        identityPoolId: 'us-east-2_NgvUMaC8q', // Amazon Cognito Identity Pool ID
-        region: 'us-east-2', // Amazon Cognito Region
-      }
-    });
+    // Amplify.configure({
+    //   Auth: {
+    //     identityPoolId: 'us-east-2_NgvUMaC8q', // Amazon Cognito Identity Pool ID
+    //     region: 'us-east-2', // Amazon Cognito Region
+    //   }
+    // });
   }
 
   async login() {
