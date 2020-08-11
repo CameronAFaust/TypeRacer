@@ -1,0 +1,55 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authtyperRacerAuthUserPoolId": {
+            "Type": "String",
+            "Default": "authtyperRacerAuthUserPoolId"
+        },
+        
+        "authtyperRacerAuthAppClientID": {
+            "Type": "String",
+            "Default": "authtyperRacerAuthAppClientID"
+        },
+        "authtyperRacerAuthAppClientIDWeb": {
+            "Type": "String",
+            "Default": "authtyperRacerAuthAppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "typeRacerGroupGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "typeRacerGroup",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authtyperRacerAuthUserPoolId"
+              } 
+            }
+        },
+        
+    
+    
+    },
+    
+}

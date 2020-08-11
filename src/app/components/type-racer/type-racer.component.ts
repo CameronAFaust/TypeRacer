@@ -29,6 +29,11 @@ export class TypeRacerComponent implements AfterViewInit {
         this.handleInput(event);
       }
     });
+    // https://stackblitz.com/edit/angular-gh-challenge-1-rnsorv?file=src%2Fapp%2Fapp.component.ts
+    // import { Observable } from 'rxjs';
+    // this.user$ = this.userName.valueChanges.pipe(switchMap((val) => {
+    //   return this.userservice.fetchUser(val)
+    // }))
   }
   handleInput(event) {
     // console.log('word = ' + this.wordInt);

@@ -1,5 +1,6 @@
 import { Component, OnInit, ContentChildren, QueryList } from '@angular/core';
 import { LoginPopupComponent } from '../login/login.component';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'nav',
@@ -8,10 +9,10 @@ import { LoginPopupComponent } from '../login/login.component';
 })
 export class NavComponent implements OnInit {
   hideNav = false;
+  loggedIn = false;
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   showLogin(): void {
     this.hideNav = this.hideNav ? false : true;

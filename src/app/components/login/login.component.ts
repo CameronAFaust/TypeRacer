@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Amplify, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -30,32 +30,32 @@ export class LoginPopupComponent implements OnInit {
   constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    // Amplify.configure({
-    //   Auth: {
-    //     identityPoolId: 'us-east-2_NgvUMaC8q', // Amazon Cognito Identity Pool ID
-    //     region: 'us-east-2', // Amazon Cognito Region
-    //   }
-    // });
   }
 
   async login() {
     const login = this.loginForm.value;
-    const user2 = await Auth.signIn(login.username, login.password)
-      .then(user => console.log(user))
-      .catch(err => console.log(err));
+    try {
+      const user = await Auth.signIn(login.username, login.password);
+      console.log(user);
+    } catch (error) {
+      console.log('error signing in', error);
+    }
   }
 
   async signup() {
     const signup = this.registerForm.value;
-    const userT = await Auth.signUp({
-      username: signup.username,
-      password: signup.password,
-      attributes: {
-        email: signup.email
-      }
-    })
-      .then(user => console.log(user))
-      .catch(err => console.log(err));
+    try {
+      const user = await Auth.signUp({
+        username: signup.username,
+        password: signup.password,
+        attributes: {
+          email: signup.email,
+        }
+      });
+      console.log(user);
+    } catch (error) {
+      console.log('error signing up:', error);
+    }
   }
 
   hide(evt) {
