@@ -36,7 +36,8 @@ export class LoginPopupComponent implements OnInit {
     const login = this.loginForm.value;
     try {
       const user = await Auth.signIn(login.username, login.password);
-      console.log(user);
+      this.hidden = true;
+      console.log(await Auth.currentUserPoolUser());
     } catch (error) {
       console.log('error signing in', error);
     }
@@ -52,7 +53,8 @@ export class LoginPopupComponent implements OnInit {
           email: signup.email,
         }
       });
-      console.log(user);
+      // console.log(user);
+      this.hidden = true;
     } catch (error) {
       console.log('error signing up:', error);
     }

@@ -12,7 +12,11 @@ export class NavComponent implements OnInit {
   loggedIn = false;
   constructor() { }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    if (await Auth.currentAuthenticatedUser()) {
+      this.loggedIn = false;
+    }
+  }
 
   showLogin(): void {
     this.hideNav = this.hideNav ? false : true;
