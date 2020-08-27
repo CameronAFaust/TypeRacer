@@ -1,4 +1,4 @@
-import { Component, OnInit, ContentChildren, QueryList } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { LoginPopupComponent } from '../login/login.component';
 import { Auth } from 'aws-amplify';
 
@@ -7,18 +7,27 @@ import { Auth } from 'aws-amplify';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements AfterViewInit {
   hideNav = false;
   loggedIn = false;
-  constructor() { }
 
-  async ngOnInit() {
-    if (await Auth.currentAuthenticatedUser()) {
-      this.loggedIn = false;
-    }
+  ngAfterViewInit() {
+    this.checkLogin();
   }
 
   showLogin(): void {
     this.hideNav = this.hideNav ? false : true;
+    this.checkLogin();
+  }
+
+  async checkLogin() {
+    try {
+      const cognitoUser = await Auth.currentSession();
+      if (cognitoUser.isValid) {
+        this.loggedIn = true;
+      }
+    } catch (error) {
+      this.loggedIn = false;
+    }
   }
 }

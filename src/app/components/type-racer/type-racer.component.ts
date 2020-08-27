@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Auth } from 'aws-amplify';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -14,7 +15,7 @@ export class TypeRacerComponent implements AfterViewInit {
   @ViewChild('incorrectText', { static: false }) incorrectText: ElementRef;
   inputControl = new FormControl('');
   // tslint:disable-next-line: max-line-length
-  tempText = 'I will hazard a prediction. When you are 80 years old, and in a quiet moment of reflection narrating for only yourself the most personal version of your life story, the telling that will be most compact and meaningful will be the series of choices you have made. In the end, we are our choices. Build yourself a great story.';
+  tempText = 'I will.'; // hazard a prediction. When you are 80 years old, and in a quiet moment of reflection narrating for only yourself the most personal version of your life story, the telling that will be most compact and meaningful will be the series of choices you have made. In the end, we are our choices. Build yourself a great story.';
   letters = this.tempText.split('');
   letterAt = 0;
   words = this.tempText.split(' ');
@@ -22,20 +23,37 @@ export class TypeRacerComponent implements AfterViewInit {
 
   wpm = 0;
   missedLetters = [];
+  totalTime: number = 0;
+  seconds: number = 0;
+  minutes: number = 0;
+  totalRaces = 1;
 
   correctHighlight = '';
   incorrectHighlight = '';
-  constructor() { }
+  interval;
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      this.totalTime++;
+      this.seconds = this.totalTime % 60;
+      // tslint:disable-next-line: radix
+      this.minutes = parseInt((this.totalTime / 60) + '');
+      // tslint:disable-next-line: radix
+      this.wpm = parseInt((this.wordInt / this.totalTime) * 100 + '');
+      // console.log(this.wpm);
+    }, 1000);
+  }
 
   ngAfterViewInit() {
     this.text.nativeElement.value = this.tempText;
     this.inputControl.valueChanges.subscribe((val) => {
       this.handleInput(val);
     });
+    this.startTimer();
   }
+
   handleInput(event) {
     const inputChar = event[event.length - 1];
-
     // if input === space to extra checks
     if (inputChar === ' ') {
       // if input === expected
@@ -57,11 +75,13 @@ export class TypeRacerComponent implements AfterViewInit {
     } else {
       // input !== expected letter, mark it, then add the letter to the missedLetters array
       this.incorrectMark();
-      this.missedLetters.push(this.letters[this.letterAt]);
+      if (this.letters[this.letterAt] !== this.missedLetters[this.missedLetters.length - 1]) {
+        this.missedLetters.push(this.letters[this.letterAt]);
+      }
     }
     // text is done
     if (this.wordInt === this.words.length) {
-      console.log('Done');
+      this.finish();
     }
   }
 
@@ -72,5 +92,43 @@ export class TypeRacerComponent implements AfterViewInit {
 
   incorrectMark() {
     this.incorrectHighlight = this.letters[this.letterAt];
+  }
+
+  async finish() {
+    const currentUser = await Auth.currentUserInfo();
+    const xhr = new XMLHttpRequest();
+    const url =
+      `https://19qhdb9la7.execute-api.us-east-2.amazonaws.com/test/people/${currentUser.attributes.email}`;
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        const res = JSON.parse(xhr.response);
+        const userData = {
+          userId: currentUser.attributes.email,
+          name: currentUser.username,
+          WPM: (this.wpm + parseInt((res.WPM ? res.WPM : 0), 10)) + '',
+          TotalRaces: (this.totalRaces + parseInt((res.TotalRaces ? res.TotalRaces : 0), 10)) + '',
+          MissedLetters: this.missedLetters.concat(res.MissedLetters)
+        };
+        this.postData(userData);
+      }
+    };
+    xhr.send();
+
+    clearTimeout(this.interval);
+  }
+
+  postData(userData) {
+    const xhr = new XMLHttpRequest();
+    const url =
+      'https://19qhdb9la7.execute-api.us-east-2.amazonaws.com/test/people';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = JSON.stringify(userData);
+    console.log(userData);
+    console.log(data);
+
+    xhr.send(data);
   }
 }

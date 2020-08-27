@@ -1,9 +1,9 @@
+<button (click)="logout()">logout</button>
 <div class="profileHolder">
-  <h1>Your Profile</h1>
+  <h1>{{username}} Profile</h1>
   <div class="statsHolder">
-    <p>WPM: 62</p>
-    <p>Best Race WPM: 82</p>
-    <p>Races Completed: 23</p>
+    <p>WPM: {{WPM}}</p>
+    <p>Races Completed: {{totalRaces}}</p>
     <p>Accuracy: 82%</p>
   </div>
 </div>

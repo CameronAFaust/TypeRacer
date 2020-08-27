@@ -1,12 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Auth } from 'aws-amplify';
+import { NavComponent } from '../nav/nav.component';
+
 
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'login-popup',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginPopupComponent implements OnInit {
   @Input() hidden = true;
@@ -27,7 +29,7 @@ export class LoginPopupComponent implements OnInit {
   //     ? null : { 'mismatch': true };
   // }
 
-  constructor(private ref: ChangeDetectorRef) { }
+  constructor(private ref: ChangeDetectorRef, private nav: NavComponent) { }
 
   ngOnInit() {
   }
@@ -36,7 +38,8 @@ export class LoginPopupComponent implements OnInit {
     const login = this.loginForm.value;
     try {
       const user = await Auth.signIn(login.username, login.password);
-      this.hidden = true;
+      // this.hidden = true;
+      this.nav.showLogin();
       console.log(await Auth.currentUserPoolUser());
     } catch (error) {
       console.log('error signing in', error);
@@ -54,7 +57,8 @@ export class LoginPopupComponent implements OnInit {
         }
       });
       // console.log(user);
-      this.hidden = true;
+      // this.hidden = true;
+      this.nav.showLogin();
     } catch (error) {
       console.log('error signing up:', error);
     }
@@ -63,6 +67,7 @@ export class LoginPopupComponent implements OnInit {
   hide(evt) {
     if (evt.target.className === 'backdrop') {
       this.hidden = true;
+      this.nav.showLogin();
     }
   }
 }

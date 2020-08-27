@@ -6,10 +6,10 @@
   <div class="spacer"></div>
 
   <!-- if logged in -->
-  <div *ngIf="loggedIn" class="button-holder" (click)="showLogin()">
+  <div *ngIf="!loggedIn" class="button-holder" (click)="showLogin()">
     <span class="nav-button">login</span>
   </div>
-  <div *ngIf="!loggedIn" class="button-holder">
+  <div *ngIf="loggedIn" class="button-holder">
     <a class="nav-button" routerLink="/profile">Profile</a>
   </div>
 </div>
