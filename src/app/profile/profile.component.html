@@ -1,12 +1,20 @@
-<button (click)="logout()">logout</button>
+<!-- <button (click)="logout()">logout</button> -->
 <div class="profileHolder">
   <h1>{{username}} Profile</h1>
   <div class="statsHolder">
     <p>WPM: {{WPM}}</p>
     <p>Races Completed: {{totalRaces}}</p>
-    <p>Accuracy: 82%</p>
   </div>
 </div>
 <div class="noBackground">
-  <div class="keyboard"></div>
+  <h1>Your most missed keys</h1>
+  <div class="keyboardHeatMap">
+    <svg class="heatmap" width="844" height="281">
+      <rect *ngFor="let key of missedKeys" [attr.x]="key.x" [attr.y]="key.y" width="54" height="54"
+        style="fill:rgb(255,110,110,.4);" />
+    </svg>
+  </div>
+  <div class="keyboard">
+    <img src="../../../assets/keyboard.png">
+  </div>
 </div>

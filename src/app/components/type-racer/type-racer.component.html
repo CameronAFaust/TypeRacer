@@ -1,7 +1,9 @@
 <!-- https://codersblock.com/blog/highlight-text-inside-a-textarea/ -->
 <div class="typeHolder">
   <div class="display">
-    <!-- image -->
+    <img class="displayImg" src="../../../assets/display.png" alt="display">
+    <img [style.top]="charStyle" class="displayChar" src="../../../assets/diver.png" alt="displayChar">
+    
     <!-- ? -->
   </div>
   <div class="textHolder">
@@ -16,8 +18,10 @@
     </div>
     <div class="inputHolder">
       <input [formControl]='inputControl' #userInput />
-      <label id="minutes">{{minutes}}</label>:<label id="seconds">{{seconds}}</label>
-      <label id="wpm">{{wpm}}</label>
+      <div>
+        <label class="currentData" id="minutes">Time: {{minutes}}:</label><label class="currentData" id="seconds">{{displaySeconds}} - </label>
+        <label class="currentData" id="wpm">WPM: {{wpm}}</label>
+      </div>
     </div>
   </div>
 </div>

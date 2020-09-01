@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Auth } from 'aws-amplify';
+import { resolve } from 'url';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -15,27 +16,56 @@ export class TypeRacerComponent implements AfterViewInit {
   @ViewChild('incorrectText', { static: false }) incorrectText: ElementRef;
   inputControl = new FormControl('');
   // tslint:disable-next-line: max-line-length
-  tempText = 'I will.'; // hazard a prediction. When you are 80 years old, and in a quiet moment of reflection narrating for only yourself the most personal version of your life story, the telling that will be most compact and meaningful will be the series of choices you have made. In the end, we are our choices. Build yourself a great story.';
+  tempText = 'I will. hazard a prediction. When you are 80 years old, and in a quiet moment of reflection narrating for only yourself the most personal version of your life story, the telling that will be most compact and meaningful will be the series of choices you have made.'; //In the end, we are our choices. Build yourself a great story.';
   letters = this.tempText.split('');
   letterAt = 0;
   words = this.tempText.split(' ');
   wordInt = 0;
 
+  percent = .20;
+
   wpm = 0;
   missedLetters = [];
   totalTime: number = 0;
-  seconds: number = 0;
+  seconds: number = 6;
+  displaySeconds = '';
   minutes: number = 0;
   totalRaces = 1;
 
   correctHighlight = '';
   incorrectHighlight = '';
-  interval;
+  timer;
+  countdown;
+  isCountdown = true;
+
+  charStyle = '70px';
+  charTop = 70;
+
+  countDown() {
+    this.countdown = setInterval(() => {
+      this.seconds--;
+      if (this.seconds < 10) {
+        this.displaySeconds = '0' + this.seconds;
+      } else {
+        this.displaySeconds = this.seconds + '';
+      }
+      if (this.seconds === 0) {
+        clearTimeout(this.countdown);
+        this.isCountdown = false;
+        this.startTimer();
+      }
+    }, 1000);
+  }
 
   startTimer() {
-    this.interval = setInterval(() => {
+    this.timer = setInterval(() => {
       this.totalTime++;
       this.seconds = this.totalTime % 60;
+      if (this.seconds < 10) {
+        this.displaySeconds = '0' + this.seconds;
+      } else {
+        this.displaySeconds = this.seconds + '';
+      }
       // tslint:disable-next-line: radix
       this.minutes = parseInt((this.totalTime / 60) + '');
       // tslint:disable-next-line: radix
@@ -45,11 +75,17 @@ export class TypeRacerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log(this.words);
     this.text.nativeElement.value = this.tempText;
     this.inputControl.valueChanges.subscribe((val) => {
-      this.handleInput(val);
+      if (this.isCountdown) {
+        this.userInput.nativeElement.value = '';
+      } else {
+        this.handleInput(val);
+      }
     });
-    this.startTimer();
+    this.countDown();
+    // this.startTimer();
   }
 
   handleInput(event) {
@@ -88,6 +124,11 @@ export class TypeRacerComponent implements AfterViewInit {
   correctMark(letter: string) {
     this.correctHighlight += letter;
     this.incorrectHighlight = '';
+    if (((this.words.length - 1) * this.percent) <= this.wordInt && this.charTop < 290) {
+      this.percent = this.percent + .20;
+      this.charTop = this.charTop + 35;
+      this.charStyle = this.charTop + 'px';
+    }
   }
 
   incorrectMark() {
@@ -103,19 +144,20 @@ export class TypeRacerComponent implements AfterViewInit {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         const res = JSON.parse(xhr.response);
+        const temp = this.convertMissed(res.MissedLetters, this.getLetterCount(this.missedLetters));
         const userData = {
           userId: currentUser.attributes.email,
           name: currentUser.username,
           WPM: (this.wpm + parseInt((res.WPM ? res.WPM : 0), 10)) + '',
           TotalRaces: (this.totalRaces + parseInt((res.TotalRaces ? res.TotalRaces : 0), 10)) + '',
-          MissedLetters: this.missedLetters.concat(res.MissedLetters)
+          MissedLetters: temp
         };
         this.postData(userData);
       }
     };
     xhr.send();
 
-    clearTimeout(this.interval);
+    clearTimeout(this.timer);
   }
 
   postData(userData) {
@@ -130,5 +172,29 @@ export class TypeRacerComponent implements AfterViewInit {
     console.log(data);
 
     xhr.send(data);
+  }
+
+  convertMissed(server, local) {
+    let temp = server.replace(/'/g, '"');
+    temp = temp.replace(/=/g, ':');
+    temp = JSON.parse(temp);
+
+    // console.log(temp);
+
+    for (const [key, value] of Object.entries(temp)) {
+      const num = local[key] ? local[key] : 0;
+      temp[key]['N'] = (parseInt(value['N'], 10) + num) + '';
+    }
+    return temp;
+  }
+
+  getLetterCount(usersMissedKeys) {
+    let counts = {};
+    usersMissedKeys.forEach((x) => {
+      if (x !== ' ') {
+        counts[x] = (counts[x] || 0) + 1;
+      }
+    });
+    return counts;
   }
 }

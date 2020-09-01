@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
     HighScoresComponent,
     LoginPopupComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
